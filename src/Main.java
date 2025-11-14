@@ -1,6 +1,7 @@
+import constants.PaymentMethods;
 import hotel.Customer;
 import hotel.LuxuryRoom;
-import services.Notifier;
+import constants.Notifier;
 import services.Reservation;
 import hotel.Room;
 import services.ReservationService;
@@ -12,6 +13,6 @@ public class Main {
         Reservation res = new Reservation(room, customer, 2);
 
         ReservationService service = new ReservationService();
-        service.makeReservation(res, "paypal", Notifier.EMAIL);
+        service.makeReservation(res, PaymentMethods.PAYPAL, Notifier.EMAIL);
     }
 }

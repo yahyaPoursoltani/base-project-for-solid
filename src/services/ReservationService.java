@@ -1,10 +1,13 @@
 package services;
 
+import constants.Notifier;
+import constants.PaymentMethods;
+
 public class ReservationService {
-    private Notifier notifier;
+    private Notifier notifier = Notifier.EMAIL; //default Notifier
     private PaymentProcessor paymentProcessor = new PaymentProcessor();
 
-    public void makeReservation(Reservation res, String paymentType,Notifier notifier){
+    public void makeReservation(Reservation res, PaymentMethods paymentType, Notifier notifier){
         System.out.println("Processing reservation for " + res.customer.name);
 
         if(res.customer.city.equals("Paris")){
@@ -12,12 +15,16 @@ public class ReservationService {
             res.room.price *= 0.9;
         }
 
-        if(paymentType.equals("card")){
-            paymentProcessor.payByCard(res.totalPrice());
-        } else if(paymentType.equals("cash")){
-            paymentProcessor.payByCash(res.totalPrice());
-        } else if(paymentType.equals("paypal")){
-            paymentProcessor.payByPayPal(res.totalPrice());
+        switch (paymentType){
+            case CARD:
+                paymentProcessor.payByCard(res.totalPrice());
+                break;
+            case PAYPAL:
+                paymentProcessor.payByPayPal(res.totalPrice());
+                break;
+            case CASH:
+                paymentProcessor.payByCash(res.totalPrice());
+                break;
         }
 
         System.out.println("----- INVOICE -----");

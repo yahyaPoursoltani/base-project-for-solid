@@ -4,9 +4,4 @@ class EmailSender implements MessageSender{
     public void sendEmail(String to, String message){
         System.out.println("Sending email to " + to + ": " + message);
     }
-
-    @Override
-    public void sendSms(String targetNumber, String message) {
-        //Empty
-    }
 }
